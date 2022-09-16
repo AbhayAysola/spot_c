@@ -45,8 +45,24 @@
 
 #include "keyexchange.pb-c.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "diffie_hellman.h"
 
-int main(void) {
-    ClientHello test;
+int
+main(void) {
+    // Construct build_info
+    BuildInfo build_info = BUILD_INFO__INIT;
+    build_info.product = PRODUCT__PRODUCT_CLIENT;
+    build_info.product_flags = PRODUCT_FLAGS__PRODUCT_FLAG_NONE;
+    build_info.platform = PLATFORM__PLATFORM_LINUX_X86;
+    build_info.version = (uint64_t)115800820;
+
+    Cryptosuite cryptosuites_supported = CRYPTOSUITE__CRYPTO_SUITE_SHANNON;
+
+    LoginCryptoHelloUnion login_crypto_hello = LOGIN_CRYPTO_HELLO_UNION__INIT;
+    LoginCryptoDiffieHellmanHello diffie_hellman = LOGIN_CRYPTO_DIFFIE_HELLMAN_HELLO__INIT;
+
+    struct DhLocalKeys *dh = dh_random();
+
     return 0;
 }

@@ -1,4 +1,4 @@
-DEPS := libcurl json-c 'libprotobuf-c >= 1.0.0'
+DEPS := libcurl json-c 'libprotobuf-c >= 1.0.0' openssl
 
 all: build/main
 
@@ -7,13 +7,16 @@ run: clean proto build/main
 	clear
 	@build/main
 
-build/main: build/main.o build/ap.o
+build/main: build/main.o build/ap.o build/diffie_hellman.o
 	gcc $? protocol/*.pb-c.c -I include $$(pkg-config --libs --cflags $(DEPS)) -o build/main
 
 build/main.o : src/main.c
 	gcc $? -I include -o $@ -c
 
 build/ap.o : src/ap.c
+	gcc $? -I include -o $@ -c
+
+build/diffie_hellman.o: src/diffie_hellman.c
 	gcc $? -I include -o $@ -c
 
 .PHONY: proto
