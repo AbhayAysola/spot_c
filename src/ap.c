@@ -57,8 +57,8 @@ get_ap(char* apresolve, size_t ap_index) {
 
     char* ap_string = malloc(30);
     strcpy(ap_string, json_object_to_json_string(ap)); // Copy from const char * to char *
-    ap_string++;                     // Remove first and last character
-    ap_string[strlen(ap_string) - 1] = '\0'; // because get_ap returns string with quotes
+    ap_string++;                             // Remove first and last character
+    ap_string[strlen(ap_string) - 1] = '\0'; // because json returns string with quotes
 
     return ap_string;
 }
