@@ -6,6 +6,7 @@ struct DhLocalKeys {
 };
 struct DhLocalKeys* dh_random();
 uint8_t* shared_secret(struct DhLocalKeys* dh, uint8_t* remote_key, size_t remote_key_len);
+void free_dh(struct DhLocalKeys*dh);
 
 #define DH_PRIME_SIZE_IN_BYTES    97
 #define PRIV_KEY_SIZE_IN_BYTES    95

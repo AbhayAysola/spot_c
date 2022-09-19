@@ -53,6 +53,10 @@ shared_secret(struct DhLocalKeys* dh, uint8_t* remote_key, size_t remote_key_len
     BIGNUM* shared_key_bn = powm(remote_key_bn, private_key, DH_PRIME);
     uint8_t* shared_key = malloc(BN_num_bytes(shared_key_bn));
     BN_bn2bin(shared_key_bn, shared_key);
+
+    BN_free(remote_key_bn);
+    BN_free(private_key);
+    BN_free(DH_PRIME);
     return shared_key;
 }
 
@@ -71,4 +75,10 @@ powm(BIGNUM* base, BIGNUM* exp, BIGNUM* modulus) {
     }
     BN_CTX_free(ctx);
     return res;
+}
+
+void free_dh(struct DhLocalKeys *dh) {
+    free(dh->private_key);
+    free(dh->public_key);
+    free(dh);
 }

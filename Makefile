@@ -7,17 +7,21 @@ run: clean proto build/main
 	clear
 	@build/main
 
-build/main: build/main.o build/ap.o build/diffie_hellman.o
-	gcc $? protocol/*.pb-c.c -I include $$(pkg-config --libs --cflags $(DEPS)) -o build/main
+build/main: build/main.o build/ap.o build/diffie_hellman.o build/connection.o
+	gcc $? protocol/*.pb-c.c -I include $$(pkg-config --libs --cflags $(DEPS)) -o build/main -g
 
 build/main.o : src/main.c
-	gcc $? -I include -o $@ -c
+	gcc $? -I include -o $@ -c -g
 
 build/ap.o : src/ap.c
-	gcc $? -I include -o $@ -c
+	gcc $? -I include -o $@ -c -g
 
 build/diffie_hellman.o: src/diffie_hellman.c
-	gcc $? -I include -o $@ -c
+	gcc $? -I include -o $@ -c -g
+
+build/connection.o: src/connection.c
+	gcc $? -I include -o $@ -c -g
+
 
 .PHONY: proto
 proto:
