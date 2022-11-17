@@ -22,6 +22,9 @@ build/diffie_hellman.o: src/diffie_hellman.c
 build/connection.o: src/connection.c
 	gcc $? -I include -o $@ -c -g
 
+debug: build/main
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=debug ./build/main 
+
 
 .PHONY: proto
 proto:

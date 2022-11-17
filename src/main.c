@@ -26,14 +26,14 @@ int main(void) {
     *(port - 1) = '\0';
 
     int err;
-    if (err = getaddrinfo(ap, port, &hints, &res)) {
+    if ((err = getaddrinfo(ap, port, &hints, &res))) {
         printf("%s", gai_strerror(err));
     }
     char ip_addr[INET_ADDRSTRLEN];
     inet_ntop(res->ai_addr->sa_family, res->ai_addr, ip_addr, INET_ADDRSTRLEN);
 
     sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-    if (err = connect(sockfd, res->ai_addr, res->ai_addrlen)) {
+    if ((err = connect(sockfd, res->ai_addr, res->ai_addrlen))) {
         printf("%s", gai_strerror(err));
     }
     handshake(sockfd);

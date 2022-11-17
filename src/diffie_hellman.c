@@ -47,7 +47,7 @@ shared_secret(struct DhLocalKeys* dh, uint8_t* remote_key, size_t remote_key_len
     BIGNUM* remote_key_bn = NULL;
     remote_key_bn = BN_bin2bn(remote_key, remote_key_len, remote_key_bn);
     BIGNUM* private_key = NULL;
-    private_key = BN_bin2bn(dh->private_key, PRIV_KEY_SIZE_IN_BYTES, private_key);
+    private_key = BN_bin2bn(dh->private_key, 32, private_key);
     BIGNUM* DH_PRIME = NULL;
     DH_PRIME = BN_bin2bn(DH_PRIME_BYTES, DH_PRIME_SIZE_IN_BYTES, DH_PRIME);
     BIGNUM* shared_key_bn = powm(remote_key_bn, private_key, DH_PRIME);

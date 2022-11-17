@@ -38,6 +38,9 @@ void handshake(int sockfd) {
     if (ap_response == NULL) {
         return;
     }
+    if (ap_response_recvd_bytes == -1)
+        return;
+    printf("recv: %i bytes\n", ap_response_recvd_bytes);
 
     uint8_t* shared_key = shared_secret(dh, ap_response->challenge->login_crypto_challenge->diffie_hellman->gs.data, ap_response->challenge->login_crypto_challenge->diffie_hellman->gs.len);
     uint8_t **keys = compute_keys(shared_key, &accumulator);
